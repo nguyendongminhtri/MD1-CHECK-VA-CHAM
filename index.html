@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Rectangle.js"></script>
+    <script src="Circle.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1300" height="600" style="border: 2px solid green"></canvas>
+</body>
+</html>
+<script>
+    let canvas = document.getElementById('myCanvas');
+    let ctx = canvas.getContext('2d');
+    let rectangle1 = new Rectangle(100, 500, 100, 50, 'red')
+    let rectangle2 = new Rectangle(700, 100, 100, 30, 'blue')
+    let circle = new Circle(400, 100, 50, 'green')
+
+    function moveRect() {
+        console.log('goi ham di chuyen')
+        console.log('event == ', event.keyCode)
+        switch (event.keyCode) {
+            case 37:
+                rectangle1.moveLeft();
+                break;
+            case 38:
+                rectangle1.moveUp();
+                break;
+            case 39:
+                rectangle1.moveRight();
+                break;
+            case 40:
+                rectangle1.moveDown();
+                break;
+
+        }
+        actionCollision();
+        clearCanvas();
+        drawCanvas();
+    }
+
+    //HAM CHECK VA CHAM
+    function checkCollision() {
+        if ((rectangle1.x + rectangle1.width > circle.x - circle.radius) && (rectangle1.x < circle.x + circle.radius)
+            && (rectangle1.y + rectangle1.height > circle.y - circle.radius && rectangle1.y < circle.y + circle.radius)) {
+            return true;
+        } else if ((rectangle1.x + rectangle1.width > rectangle2.x) && (rectangle1.x < rectangle2.x + rectangle2.width) &&
+            (rectangle1.y < rectangle2.y + rectangle2.height && (rectangle1.y + rectangle1.height > rectangle2.y))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function actionCollision() {
+        console.log('check Vacham sau khi thoat khoi hinh tron', checkCollision())
+        if (checkCollision()) {
+            alert('CO VA CHAM')
+        }
+    }
+
+
+    //HAM XOA CANVAS MOI LAN GOI EVENT
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
+
+    function drawCanvas() {
+        rectangle1.drawRectangle(ctx);
+        rectangle2.drawRectangle(ctx);
+        // circle.drawCircle(ctx);
+    }
+    function moveDownCircle(){
+        if(checkCollision()){
+            window.location.reload(); //au to reload trang
+            clearInterval(intervalId);
+            alert('GAME OVER')
+        }
+        if(circle.y >= canvas.height - circle.radius){
+            circle.y = 0;
+        }
+        circle.moveDown();
+        clearCanvas();
+        drawCanvas()
+        circle.drawCircle(ctx)
+    }
+  let intervalId = setInterval(moveDownCircle,500);
+    drawCanvas();
+    addEventListener('keydown', moveRect)
+</script>
