@@ -8,10 +8,10 @@ class Rectangle {
     }
     drawRectangle(ctx){
         console.log('this.colors = ', this.colors)
-        ctx.stroke();
+        // ctx.stroke();
         ctx.fillStyle = this.colors;
         ctx.fillRect(this.x,this.y,this.width,this.height);
-        ctx.fill();
+        // ctx.fill();
     }
     moveLeft(){
         this.x -= 20;

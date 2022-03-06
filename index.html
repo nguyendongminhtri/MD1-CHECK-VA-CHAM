@@ -7,7 +7,7 @@
     <script src="Circle.js"></script>
 </head>
 <body>
-<canvas id="myCanvas" width="1300" height="600" style="border: 2px solid green"></canvas>
+<canvas id="myCanvas" width="1100" height="600" style="border: 2px solid green"></canvas>
 </body>
 </html>
 <script>
@@ -69,7 +69,7 @@
     function drawCanvas() {
         rectangle1.drawRectangle(ctx);
         rectangle2.drawRectangle(ctx);
-        // circle.drawCircle(ctx);
+        circle.drawCircle(ctx);
     }
     function moveDownCircle(){
         if(checkCollision()){
@@ -83,7 +83,6 @@
         circle.moveDown();
         clearCanvas();
         drawCanvas()
-        circle.drawCircle(ctx)
     }
   let intervalId = setInterval(moveDownCircle,500);
     drawCanvas();
